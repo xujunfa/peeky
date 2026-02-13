@@ -1,0 +1,59 @@
+{
+  "$schema": "https://raw.githubusercontent.com/nicedoctor/tauri-releases/main/tauri-conf-v2-schema.json",
+  "productName": "tauri-mac-starter",
+  "version": "0.1.0",
+  "identifier": "com.tauri-mac-starter.app",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1430",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "withGlobalTauri": true,
+    "macOSPrivateApi": true,
+    "windows": [
+      {
+        "label": "timer",
+        "title": "tauri-mac-starter Timer",
+        "url": "/index.html",
+        "width": 270,
+        "height": 340,
+        "decorations": false,
+        "transparent": true,
+        "alwaysOnTop": true,
+        "visibleOnAllWorkspaces": true,
+        "resizable": false,
+        "visible": true
+      },
+      {
+        "label": "main",
+        "title": "tauri-mac-starter",
+        "url": "/main.html",
+        "width": 900,
+        "height": 680,
+        "decorations": true,
+        "visible": true
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "plugins": {
+    "sql": {
+      "preload": ["sqlite:starter.db"]
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ]
+  }
+}

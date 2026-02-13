@@ -1,0 +1,36 @@
+name: Rust Quality
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  rust-quality:
+    runs-on: macos-latest
+    defaults:
+      run:
+        working-directory: src-tauri
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+
+      - name: Cache Rust build artifacts
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri -> target
+
+      - name: Check formatting
+        run: cargo fmt --all --check
+
+      - name: Run Clippy (deny warnings)
+        run: cargo clippy --all-targets --all-features -- -D warnings
+
+      - name: Run Rust tests
+        run: cargo test
