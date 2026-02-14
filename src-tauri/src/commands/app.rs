@@ -16,9 +16,9 @@ pub fn ping() -> String {
 #[tauri::command]
 pub fn get_app_info() -> AppInfo {
     AppInfo {
-        name: "tauri-mac-starter".to_string(),
+        name: "Peeky".to_string(),
         version: env!("CARGO_PKG_VERSION").to_string(),
-        identifier: "com.tauri-mac-starter.app".to_string(),
+        identifier: "com.peeky.app".to_string(),
         platform: std::env::consts::OS.to_string(),
     }
 }
@@ -35,9 +35,9 @@ mod tests {
     #[test]
     fn app_info_contains_required_fields() {
         let info: AppInfo = get_app_info();
-        assert_eq!(info.name, "tauri-mac-starter");
+        assert_eq!(info.name, "Peeky");
         assert_eq!(info.version, "0.1.0");
-        assert_eq!(info.identifier, "com.tauri-mac-starter.app");
+        assert_eq!(info.identifier, "com.peeky.app");
         assert!(!info.platform.is_empty());
     }
 }

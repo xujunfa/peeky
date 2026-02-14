@@ -6,19 +6,19 @@ import {
 } from './config';
 
 describe('template config', () => {
-  it('exposes template metadata', () => {
-    expect(TEMPLATE_INFO.name).toBe('tauri-mac-starter');
+  it('exposes app metadata', () => {
+    expect(TEMPLATE_INFO.name).toBe('Peeky');
     expect(TEMPLATE_INFO.version).toBe('0.1.0');
     expect(TEMPLATE_INFO.description.length).toBeGreaterThan(0);
   });
 
   it('defines default window labels', () => {
     expect(DEFAULT_WINDOW_LABELS.main).toBe('main');
-    expect(DEFAULT_WINDOW_LABELS.timer).toBe('timer');
+    expect(DEFAULT_WINDOW_LABELS.overlay).toBe('overlay');
   });
 
   it('defines default shortcuts', () => {
-    expect(DEFAULT_SHORTCUTS.toggleTimer).toBe('Cmd+Shift+O');
+    expect(DEFAULT_SHORTCUTS.toggleOverlay).toBe('Cmd+Shift+O');
     expect(DEFAULT_SHORTCUTS.toggleMain).toBe('Cmd+Shift+L');
   });
 });

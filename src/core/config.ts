@@ -1,15 +1,15 @@
 export const TEMPLATE_INFO = {
-  name: 'tauri-mac-starter',
+  name: 'Peeky',
   version: '0.1.0',
-  description: 'A production-ready Tauri v2 + React template for desktop apps',
+  description: 'macOS menu bar memo overlay app',
 } as const;
 
 export const DEFAULT_WINDOW_LABELS = {
   main: 'main',
-  timer: 'timer',
+  overlay: 'overlay',
 } as const;
 
 export const DEFAULT_SHORTCUTS = {
-  toggleTimer: 'Cmd+Shift+O',
+  toggleOverlay: 'Cmd+Shift+O',
   toggleMain: 'Cmd+Shift+L',
 } as const;
