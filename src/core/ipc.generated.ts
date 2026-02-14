@@ -16,18 +16,79 @@ export interface AppSettings {
   theme: string;
 }
 
+export interface Category {
+  id: number;
+  name: string;
+  sort_order: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface CreateCategoryInput {
+  name: string;
+}
+
+export interface CreateItemInput {
+  category_id: number;
+  label: string;
+  value: string | null;
+}
+
+export interface Item {
+  id: number;
+  category_id: number;
+  label: string;
+  value: string;
+  sort_order: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface ItemWithCategory {
+  id: number;
+  category_id: number;
+  label: string;
+  value: string;
+  sort_order: number;
+  category_name: string;
+  category_sort_order: number;
+}
+
 export interface SetSettingsInput {
   locale: string | null;
   launch_on_login: boolean | null;
   theme: string | null;
 }
 
+export interface UpdateCategoryInput {
+  id: number;
+  name: string | null;
+  sort_order: number | null;
+}
+
+export interface UpdateItemInput {
+  id: number;
+  label: string | null;
+  value: string | null;
+  sort_order: number | null;
+}
+
 export const COMMAND_NAMES = [
-  'ping',
-  'get_app_info',
-  'get_settings',
-  'set_settings',
-  'update_tray_title',
+  "ping",
+  "get_app_info",
+  "get_settings",
+  "set_settings",
+  "get_categories",
+  "create_category",
+  "update_category",
+  "delete_category",
+  "reorder_categories",
+  "get_items",
+  "get_all_items",
+  "create_item",
+  "update_item",
+  "delete_item",
+  "update_tray_title",
 ] as const;
 
 export interface CommandArgs {
@@ -35,6 +96,16 @@ export interface CommandArgs {
   get_app_info: Record<string, never>;
   get_settings: Record<string, never>;
   set_settings: { input: SetSettingsInput };
+  get_categories: Record<string, never>;
+  create_category: { input: CreateCategoryInput };
+  update_category: { input: UpdateCategoryInput };
+  delete_category: { id: number };
+  reorder_categories: { ids: number[] };
+  get_items: { categoryId: number };
+  get_all_items: Record<string, never>;
+  create_item: { input: CreateItemInput };
+  update_item: { input: UpdateItemInput };
+  delete_item: { id: number };
   update_tray_title: { title: string };
 }
 
@@ -43,6 +114,16 @@ export interface CommandReturns {
   get_app_info: AppInfo;
   get_settings: AppSettings;
   set_settings: AppSettings;
+  get_categories: Category[];
+  create_category: Category;
+  update_category: Category;
+  delete_category: void;
+  reorder_categories: void;
+  get_items: Item[];
+  get_all_items: ItemWithCategory[];
+  create_item: Item;
+  update_item: Item;
+  delete_item: void;
   update_tray_title: void;
 }
 
