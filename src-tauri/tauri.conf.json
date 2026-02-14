@@ -1,11 +1,11 @@
 {
   "$schema": "https://raw.githubusercontent.com/nicedoctor/tauri-releases/main/tauri-conf-v2-schema.json",
-  "productName": "tauri-mac-starter",
+  "productName": "Peeky",
   "version": "0.1.0",
-  "identifier": "com.tauri-mac-starter.app",
+  "identifier": "com.peeky.app",
   "build": {
     "frontendDist": "../dist",
-    "devUrl": "http://localhost:1430",
+    "devUrl": "http://localhost:1440",
     "beforeDevCommand": "pnpm dev",
     "beforeBuildCommand": "pnpm build"
   },
@@ -14,26 +14,29 @@
     "macOSPrivateApi": true,
     "windows": [
       {
-        "label": "timer",
-        "title": "tauri-mac-starter Timer",
+        "label": "overlay",
+        "title": "Peeky Overlay",
         "url": "/index.html",
-        "width": 270,
-        "height": 340,
+        "fullscreen": false,
         "decorations": false,
         "transparent": true,
         "alwaysOnTop": true,
         "visibleOnAllWorkspaces": true,
         "resizable": false,
-        "visible": true
+        "visible": false,
+        "skipTaskbar": true,
+        "center": true,
+        "width": 960,
+        "height": 540
       },
       {
         "label": "main",
-        "title": "tauri-mac-starter",
+        "title": "Peeky",
         "url": "/main.html",
         "width": 900,
         "height": 680,
         "decorations": true,
-        "visible": true
+        "visible": false
       }
     ],
     "security": {
@@ -42,7 +45,7 @@
   },
   "plugins": {
     "sql": {
-      "preload": ["sqlite:starter.db"]
+      "preload": ["sqlite:peeky.db"]
     }
   },
   "bundle": {
