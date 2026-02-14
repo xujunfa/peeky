@@ -3,12 +3,20 @@ use sqlx::SqlitePool;
 use tauri_plugin_sql::{Migration, MigrationKind};
 
 pub fn migrations() -> Vec<Migration> {
-    vec![Migration {
-        version: 1,
-        description: "create_app_settings_table",
-        sql: include_str!("../migrations/001_init.sql"),
-        kind: MigrationKind::Up,
-    }]
+    vec![
+        Migration {
+            version: 1,
+            description: "create_app_settings_table",
+            sql: include_str!("../migrations/001_init.sql"),
+            kind: MigrationKind::Up,
+        },
+        Migration {
+            version: 2,
+            description: "create_categories_and_items_tables",
+            sql: include_str!("../migrations/002_peeky_domain.sql"),
+            kind: MigrationKind::Up,
+        },
+    ]
 }
 
 pub async fn create_pool(db_path: &str) -> Result<SqlitePool, sqlx::Error> {
