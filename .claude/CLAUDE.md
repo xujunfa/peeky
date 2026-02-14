@@ -1,31 +1,32 @@
-# tauri-mac-starter
+# Peeky
 
-Tauri v2 + React + TypeScript 的 macOS 桌面模板仓库（业务中立）。
+macOS 菜单栏常驻备忘浮层应用。基于 Tauri v2 + React + TypeScript。
 
 ## 项目定位
 
-- 提供可直接扩展的模板骨架，不包含 area/project/task/pomodoro 业务域。
+- 通过全局快捷键唤出全屏毛玻璃浮层，展示用户预设的备忘信息。
 - 当前 UI：
-  - Main Window：模板首页（`src/windows/main/App.tsx`）
-  - Timer Window：占位浮窗（`src/windows/timer/App.tsx`）
+  - Overlay Window：全屏毛玻璃浮层（`src/windows/overlay/App.tsx`）
+  - Main Window：分栏 & 条目管理界面（`src/windows/main/App.tsx`）
 
 ## 当前系统真相
 
 - Dev 端口：`1430`（HMR `1431`）
 - Tauri `devUrl`：`http://localhost:1430`
 - 快捷键：
-  - `Cmd+Shift+O`：切换 timer
+  - `Cmd+Shift+O`：切换 overlay
   - `Cmd+Shift+L`：切换 main
-- SQLite：`starter.db`
-- Identifier：`com.tauri-mac-starter.app`
+- SQLite：`peeky.db`
+- Identifier：`com.peeky.app`
 - IPC 契约真相：`src/core/ipc.generated.ts`
 
-## Rust 命令契约（仅 5 个）
+## Rust 命令契约（15 个）
 
 - `ping`
 - `get_app_info`
-- `get_settings`
-- `set_settings`
+- `get_settings` / `set_settings`
+- `get_categories` / `create_category` / `update_category` / `delete_category` / `reorder_categories`
+- `get_items` / `get_all_items` / `create_item` / `update_item` / `delete_item`
 - `update_tray_title`
 
 > 新增命令必须先改 Rust + `generate_handler![]`，再跑 `pnpm gen:ipc`。
@@ -35,11 +36,15 @@ Tauri v2 + React + TypeScript 的 macOS 桌面模板仓库（业务中立）。
 - `src-tauri/src/lib.rs`：窗口/Tray/快捷键/命令注册
 - `src-tauri/src/commands/app.rs`：app 基础命令
 - `src-tauri/src/commands/settings.rs`：settings 读写命令
+- `src-tauri/src/commands/categories.rs`：categories CRUD
+- `src-tauri/src/commands/items.rs`：items CRUD
 - `src-tauri/src/db.rs`：migration 注册 + db pool
-- `src-tauri/migrations/001_init.sql`：最小 schema（`app_settings`）
+- `src-tauri/migrations/001_init.sql`：`app_settings` 表
+- `src-tauri/migrations/002_peeky_domain.sql`：`categories` + `items` 表
 - `src/core/ipc.ts`：`typedInvoke` 封装
 - `src/core/ipc.generated.ts`：生成 IPC 类型（禁止手改）
-- `src/modules/app/*`、`src/modules/settings/*`：前端 API 模块
+- `src/modules/categories/*`、`src/modules/items/*`：前端 CRUD API
+- `src/modules/app/*`、`src/modules/settings/*`：前端基础 API
 
 ## 常用命令
 
@@ -66,7 +71,7 @@ pnpm tauri dev
 
 ## Skills 使用指南（简版）
 
-优先在“会影响架构或质量”的任务上主动使用 skills。
+优先在"会影响架构或质量"的任务上主动使用 skills。
 
 ### 技术栈相关
 

@@ -1,19 +1,23 @@
 # Architecture
 
-## 当前架构（模板态）
+## 当前架构（Peeky MVP）
 
 - Rust 平台层：`src-tauri/src/lib.rs`
-  - 窗口管理、Tray、全局快捷键、命令注册。
-- 命令层：`src-tauri/src/commands/app.rs` + `src-tauri/src/commands/settings.rs`
-  - 仅保留 5 个模板命令。
-- 数据层：`src-tauri/src/db.rs` + `src-tauri/migrations/001_init.sql`
-  - SQLite `starter.db`，仅 `app_settings` 表。
+  - 窗口管理（overlay + main）、Tray、全局快捷键、命令注册。
+- 命令层：
+  - `src-tauri/src/commands/app.rs`：ping, get_app_info
+  - `src-tauri/src/commands/settings.rs`：settings 读写
+  - `src-tauri/src/commands/categories.rs`：categories CRUD（5 命令）
+  - `src-tauri/src/commands/items.rs`：items CRUD（5 命令）
+- 数据层：`src-tauri/src/db.rs` + migrations/
+  - SQLite `peeky.db`，3 张表：`app_settings`、`categories`、`items`。
 - 前端 IPC 层：`src/core/ipc.ts` + `src/core/ipc.generated.ts`
-  - `typedInvoke` + 自动生成契约。
-- 前端模块层：`src/modules/app/*` + `src/modules/settings/*`
-  - 封装模板命令调用。
-- UI 层：`src/windows/main/App.tsx` + `src/windows/timer/App.tsx`
-  - 中性首页 + timer 占位页。
+  - `typedInvoke` + 自动生成契约（15 个命令）。
+- 前端模块层：`src/modules/{app,settings,categories,items}/`
+  - 封装 typedInvoke 调用。
+- UI 层：
+  - `src/windows/overlay/App.tsx`：全屏毛玻璃浮层，多分栏备忘展示。
+  - `src/windows/main/App.tsx`：左右分栏管理界面（CategoryList + ItemList）。
 
 ## 何时更新本文件
 
